@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://scjgw21wtym0"]
+
+[ext_resource type="Texture2D" uid="uid://xsoryc5v85k1" path="res://textures/torch.tres" id="1_i632l"]
+
+[node name="Dungeon_torch" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 2
+texture_filter = 0
+texture = ExtResource("1_i632l")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.865729, 0.736663, 0.142288, 1)

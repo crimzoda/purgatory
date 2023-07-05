@@ -1,0 +1,335 @@
+[gd_scene load_steps=16 format=3 uid="uid://cgny2yxygpthb"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_opu54"]
+[ext_resource type="Texture2D" uid="uid://dmpfslmt8vl65" path="res://textures/character.png" id="2_iqdo4"]
+[ext_resource type="Texture2D" uid="uid://hcg0iq3aitha" path="res://textures/character_roll.png" id="3_obb65"]
+[ext_resource type="Texture2D" uid="uid://d2ujov1lnl7b0" path="res://textures/item_slot.png" id="4_1wd6v"]
+[ext_resource type="Texture2D" uid="uid://f4kyt6g6vqyi" path="res://textures/equip_slot_1.png" id="5_015vk"]
+[ext_resource type="Texture2D" uid="uid://b8hf50ev71yex" path="res://textures/equip_slot_2.png" id="6_6krdt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3iuon"]
+size = Vector3(1.3, 1.3, 1.3)
+
+[sub_resource type="QuadMesh" id="QuadMesh_kaog6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i47jq"]
+shading_mode = 0
+albedo_color = Color(0, 0.458824, 0.0862745, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jofy3"]
+shading_mode = 0
+albedo_color = Color(0.0588235, 0.215686, 0.839216, 1)
+
+[sub_resource type="Animation" id="Animation_yt17q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_iqdo4")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("offhand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0944775, 0.273382, 0.14281)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("equippedHand:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.381796, 0.273382, 0.14281)]
+}
+
+[sub_resource type="Animation" id="Animation_a1d0u"]
+resource_name = "damage"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.94902, 0.592157, 0.580392, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yabc3"]
+resource_name = "death_fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"death_screen"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0m7qw"]
+resource_name = "roll"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_obb65")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("offhand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.292791, 0.273382, -0.0755723)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("equippedHand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.342051, 0.273382, 0.023104)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1uy73"]
+_data = {
+"RESET": SubResource("Animation_yt17q"),
+"damage": SubResource("Animation_a1d0u"),
+"death_fade": SubResource("Animation_yabc3"),
+"roll": SubResource("Animation_0m7qw")
+}
+
+[node name="Player" type="CharacterBody3D"]
+input_ray_pickable = false
+script = ExtResource("1_opu54")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_iqdo4")
+
+[node name="wearable_torso" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+
+[node name="wearable_head" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+
+[node name="equippedHand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.381796, 0.273382, 0.14281)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_3iuon")
+
+[node name="roll_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="stamina_cooldown" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.54111)
+visible = false
+billboard = 1
+texture_filter = 0
+text = "[stamina]"
+font_size = 40
+
+[node name="stats" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.049329, 0.494284, 0, -0.111744, 0.218201, 0, 0.731469, -0.732374)
+
+[node name="health_bar" type="MeshInstance3D" parent="stats"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.27682, 0.127425)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_kaog6")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_i47jq")
+
+[node name="stamina_bar" type="MeshInstance3D" parent="stats"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.229022, 0.020337)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_kaog6")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_jofy3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1uy73")
+}
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+current = true
+
+[node name="left_hand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382, 0.273, 0.143)
+
+[node name="offhand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0944775, 0.273382, 0.14281)
+
+[node name="right_hand" type="Node3D" parent="offhand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140262, 0, -0.419616)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -94.0
+offset_right = 223.0
+offset_bottom = -25.0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+
+[node name="item_slot_1" type="TextureRect" parent="Control/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_1wd6v")
+
+[node name="slot_num" type="TextureRect" parent="Control/HBoxContainer/item_slot_1"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 18.0
+offset_bottom = 19.0
+texture = ExtResource("5_015vk")
+
+[node name="item" type="TextureRect" parent="Control/HBoxContainer/item_slot_1"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 54.0
+offset_bottom = 54.0
+
+[node name="item_slot_2" type="TextureRect" parent="Control/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_1wd6v")
+
+[node name="slot_num" type="TextureRect" parent="Control/HBoxContainer/item_slot_2"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 18.0
+offset_bottom = 19.0
+texture = ExtResource("6_6krdt")
+
+[node name="item" type="TextureRect" parent="Control/HBoxContainer/item_slot_2"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 54.0
+offset_bottom = 54.0
+
+[connection signal="timeout" from="roll_timer" to="." method="_on_roll_timer_timeout"]
+[connection signal="timeout" from="stamina_cooldown" to="." method="_on_stamina_cooldown_timeout"]

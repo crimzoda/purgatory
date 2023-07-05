@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhv23b0dy8q7c"]
+
+[ext_resource type="Texture2D" uid="uid://b05mbyyky8t16" path="res://textures/campfire_flames.png" id="1_573lv"]
+[ext_resource type="Script" path="res://scripts/campfire_ember.gd" id="2_8jch3"]
+
+[node name="Campfire_ember" type="CharacterBody3D"]
+script = ExtResource("2_8jch3")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_573lv")

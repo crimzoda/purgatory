@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbyqmqwyxtya1"]
+
+[ext_resource type="Script" path="res://scripts/shop_item.gd" id="1_cddtk"]
+[ext_resource type="Texture2D" uid="uid://d1lfchl0rebiw" path="res://textures/items/cooked_chicken.png" id="2_ifrlx"]
+[ext_resource type="Texture2D" uid="uid://l5qyxc75rp7o" path="res://textures/items/spirit.png" id="3_q0f6o"]
+
+[node name="Shop_item" type="Control"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 276.0
+offset_bottom = 29.0
+mouse_filter = 1
+script = ExtResource("1_cddtk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 0
+offset_right = 272.0
+offset_bottom = 28.0
+mouse_filter = 1
+color = Color(0.392157, 0, 0, 0)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 0
+offset_right = 155.0
+offset_bottom = 19.0
+theme_override_constants/separation = 5
+
+[node name="itemTexture" type="TextureRect" parent="ColorRect/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(16, 19)
+layout_mode = 2
+texture = ExtResource("2_ifrlx")
+stretch_mode = 3
+
+[node name="txtItemName" type="Label" parent="ColorRect/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "[item_name]"
+vertical_alignment = 1
+
+[node name="txtItemAmount" type="Label" parent="ColorRect/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+text = "[amount]"
+vertical_alignment = 1
+
+[node name="btnBuy" type="Button" parent="ColorRect/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+tooltip_text = "Loot"
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+action_mode = 0
+text = "Buy"
+icon = ExtResource("3_q0f6o")
+icon_alignment = 2
+
+[connection signal="pressed" from="ColorRect/HBoxContainer/btnBuy" to="." method="_on_btn_loot_pressed"]

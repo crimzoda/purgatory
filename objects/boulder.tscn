@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://beg8f4t54nq0r"]
+
+[ext_resource type="Script" path="res://scripts/boulder.gd" id="1_cptuv"]
+[ext_resource type="ArrayMesh" uid="uid://1r6w0ixgn1o7" path="res://meshes/boulder.obj" id="1_y81fk"]
+[ext_resource type="Texture2D" uid="uid://ljrlr1247i6c" path="res://textures/boulder.png" id="2_uykuy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u748a"]
+albedo_texture = ExtResource("2_uykuy")
+texture_filter = 0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_av8sd"]
+radius = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7sac7"]
+radius = 1.0
+
+[node name="Boulder" type="RigidBody3D"]
+collision_layer = 11
+collision_mask = 11
+mass = 50000.0
+gravity_scale = 5.0
+script = ExtResource("1_cptuv")
+
+[node name="Boulder" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_y81fk")
+surface_material_override/0 = SubResource("StandardMaterial3D_u748a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_av8sd")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 11
+collision_mask = 27
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_7sac7")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+bus = &"Dungeon"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

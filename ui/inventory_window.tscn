@@ -1,0 +1,191 @@
+[gd_scene load_steps=12 format=3 uid="uid://75f6wfhdc3n5"]
+
+[ext_resource type="Script" path="res://scripts/inventory_window.gd" id="1_pynxq"]
+[ext_resource type="Texture2D" uid="uid://0wvndrujxucm" path="res://textures/inventory_window.png" id="2_vrqqr"]
+[ext_resource type="Script" path="res://scripts/inventory_context_menu.gd" id="3_5nysi"]
+[ext_resource type="Texture2D" uid="uid://d4etukwn03d3v" path="res://textures/equip_item.png" id="4_llmum"]
+[ext_resource type="Texture2D" uid="uid://f4kyt6g6vqyi" path="res://textures/equip_slot_1.png" id="5_n2r2p"]
+[ext_resource type="Texture2D" uid="uid://b8hf50ev71yex" path="res://textures/equip_slot_2.png" id="6_acwbc"]
+[ext_resource type="Texture2D" uid="uid://bate1ewlntdd6" path="res://textures/consume.png" id="7_r5ddj"]
+[ext_resource type="Texture2D" uid="uid://c2s7l04ophjo5" path="res://textures/items/coin.png" id="8_2bww1"]
+[ext_resource type="Texture2D" uid="uid://31u0uhyyrady" path="res://textures/drop_item.png" id="9_741gg"]
+[ext_resource type="Texture2D" uid="uid://bafncbwqy6u2c" path="res://textures/items/raw_chicken.png" id="12_0wmdv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glt4e"]
+size = Vector2(339, 373)
+
+[node name="Inventory_window" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 355.0
+offset_bottom = 392.0
+mouse_filter = 1
+script = ExtResource("1_pynxq")
+
+[node name="bgWindow" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_vrqqr")
+
+[node name="lblSpirits" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 268.0
+offset_top = 17.0
+offset_right = 324.0
+offset_bottom = 36.0
+text = "0"
+vertical_alignment = 1
+
+[node name="dragbar" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 317.0
+offset_bottom = 40.0
+
+[node name="close" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 8.0
+offset_right = 347.0
+offset_bottom = 38.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 44.0
+offset_right = 340.0
+offset_bottom = 375.0
+
+[node name="inventoryContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(177.5, 196.5)
+shape = SubResource("RectangleShape2D_glt4e")
+
+[node name="context_menu" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 364.0
+offset_top = 195.0
+offset_right = 493.0
+offset_bottom = 335.0
+mouse_filter = 1
+script = ExtResource("3_5nysi")
+
+[node name="ColorRect" type="ColorRect" parent="context_menu"]
+layout_mode = 2
+offset_right = 154.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="context_menu"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 108.0
+
+[node name="btnEquip" type="Button" parent="context_menu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+text = "Equip"
+icon = ExtResource("4_llmum")
+flat = true
+alignment = 0
+
+[node name="btnEquipPrimary" type="Button" parent="context_menu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+text = "Equip primary"
+icon = ExtResource("5_n2r2p")
+flat = true
+alignment = 0
+
+[node name="btnEquipSecondary" type="Button" parent="context_menu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+text = "Equip secondary"
+icon = ExtResource("6_acwbc")
+flat = true
+alignment = 0
+
+[node name="btnConsume" type="Button" parent="context_menu/VBoxContainer"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+text = "Consume"
+icon = ExtResource("7_r5ddj")
+flat = true
+alignment = 0
+
+[node name="btnSell" type="Button" parent="context_menu/VBoxContainer"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+text = "Sell"
+icon = ExtResource("8_2bww1")
+flat = true
+alignment = 0
+
+[node name="btnDrop" type="Button" parent="context_menu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+action_mode = 0
+text = "Drop"
+icon = ExtResource("9_741gg")
+flat = true
+alignment = 0
+
+[node name="item_texture" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 20.0
+offset_top = 342.0
+offset_right = 52.0
+offset_bottom = 374.0
+texture = ExtResource("12_0wmdv")
+
+[node name="item_description" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 57.0
+offset_top = 342.0
+offset_right = 334.0
+offset_bottom = 373.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "[description text]"
+vertical_alignment = 1
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="gui_input" from="dragbar" to="." method="_on_dragbar_gui_input"]
+[connection signal="gui_input" from="close" to="." method="_on_close_gui_input"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="pressed" from="context_menu/VBoxContainer/btnEquip" to="context_menu" method="_on_btn_equip_pressed"]
+[connection signal="pressed" from="context_menu/VBoxContainer/btnEquipPrimary" to="context_menu" method="_on_btn_equip_primary_pressed"]
+[connection signal="pressed" from="context_menu/VBoxContainer/btnEquipSecondary" to="context_menu" method="_on_btn_equip_secondary_pressed"]
+[connection signal="pressed" from="context_menu/VBoxContainer/btnConsume" to="context_menu" method="_on_btn_consume_pressed"]
+[connection signal="pressed" from="context_menu/VBoxContainer/btnSell" to="context_menu" method="_on_btn_sell_pressed"]
+[connection signal="pressed" from="context_menu/VBoxContainer/btnDrop" to="context_menu" method="_on_btn_drop_pressed"]

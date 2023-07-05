@@ -1,0 +1,135 @@
+[gd_scene load_steps=9 format=3 uid="uid://cyx0xt76ywxy6"]
+
+[ext_resource type="Script" path="res://scripts/garoff.gd" id="1_kulq8"]
+[ext_resource type="Texture2D" uid="uid://c2d8edlu21gcj" path="res://textures/garoff_holding_axe.png" id="2_5gsyg"]
+[ext_resource type="Texture2D" uid="uid://cu53gy7r1x4k7" path="res://textures/health_bar_progress.png" id="3_6x8vo"]
+[ext_resource type="Texture2D" uid="uid://l01iaj5vkknu" path="res://textures/health_bar_background.png" id="3_xlcey"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mtiy5"]
+radius = 1.29556
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_03ybj"]
+height = 0.001
+radius = 5.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_rfxby"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5lna6"]
+shading_mode = 0
+albedo_color = Color(0, 0.458824, 0.0862745, 1)
+
+[node name="Garoff" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_kulq8")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_5gsyg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_mtiy5")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95702, 0)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_03ybj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+navigation_layers = 3
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+visible = false
+billboard = 1
+texture_filter = 0
+text = "[Velocity]"
+font_size = 80
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+
+[node name="damage_timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="state_changer" type="Timer" parent="."]
+autostart = true
+
+[node name="audio_timer" type="Timer" parent="."]
+autostart = true
+
+[node name="axe_timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+max_distance = 10.0
+bus = &"Dungeon"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="pb_health" type="TextureProgressBar" parent="."]
+visible = false
+texture_filter = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -51.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 500.0
+value = 500.0
+nine_patch_stretch = true
+stretch_margin_left = 8
+stretch_margin_top = 8
+stretch_margin_right = 8
+stretch_margin_bottom = 8
+texture_over = ExtResource("3_xlcey")
+texture_progress = ExtResource("3_6x8vo")
+
+[node name="boss_title" type="Label" parent="pb_health"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 2.0
+offset_top = -36.0
+offset_right = 98.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 32
+text = "Garoff"
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.938181, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.72237, 0, 0, 0, 1, 0, 0.686122, 0)
+
+[node name="health_bar" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.83898, 0, 0, 0, 0.146399, 1.24613, 0, -0.209445, 0.871025, -0.0310906, 1.515, -1.60528)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_rfxby")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_5lna6")
+
+[node name="lblGaroff" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82996, -1.78195)
+billboard = 1
+text = "Garoff"
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="damage_timer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="state_changer" to="." method="_on_state_changer_timeout"]
+[connection signal="timeout" from="audio_timer" to="." method="_on_audio_timer_timeout"]
+[connection signal="timeout" from="axe_timer" to="." method="_on_axe_timer_timeout"]

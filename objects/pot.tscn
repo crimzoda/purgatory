@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddpjxcrdav3iw"]
+
+[ext_resource type="Script" path="res://scripts/pot.gd" id="1_13q4s"]
+[ext_resource type="ArrayMesh" uid="uid://b4a0ilo3p5pxb" path="res://meshes/pot.obj" id="2_cnebt"]
+[ext_resource type="Texture2D" uid="uid://b2200qi5p67vr" path="res://textures/pot.png" id="3_eb1b4"]
+[ext_resource type="Texture2D" uid="uid://l8imj3at0ybc" path="res://textures/pot_smashed.png" id="4_x8uu8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_682bc"]
+albedo_texture = ExtResource("3_eb1b4")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2t5si"]
+size = Vector3(0.707711, 0.942973, 0.730335)
+
+[node name="Pot" type="StaticBody3D"]
+script = ExtResource("1_13q4s")
+
+[node name="Pot" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_cnebt")
+surface_material_override/0 = SubResource("StandardMaterial3D_682bc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310293, 0)
+shape = SubResource("BoxShape3D_2t5si")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+bus = &"Dungeon"
+
+[node name="smashed_sprite" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("4_x8uu8")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

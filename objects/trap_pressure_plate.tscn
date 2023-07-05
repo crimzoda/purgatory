@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://n8xa0wi18bxm"]
+
+[ext_resource type="ArrayMesh" uid="uid://dvpv482hyi8o8" path="res://meshes/trap_pressure_plate.obj" id="1_gqsjv"]
+[ext_resource type="Script" path="res://scripts/trap_pressure_plate.gd" id="1_yprtf"]
+[ext_resource type="Texture2D" uid="uid://dmh8fl4jydiaw" path="res://textures/trap_pressure_plate.png" id="2_ihg5a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlyyj"]
+albedo_texture = ExtResource("2_ihg5a")
+texture_filter = 0
+
+[sub_resource type="Animation" id="Animation_6jbo4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrapPressurePlate:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sa8x8"]
+resource_name = "pressure_plate_activated"
+length = 0.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TrapPressurePlate:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.0997938, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_viuhr"]
+_data = {
+"RESET": SubResource("Animation_6jbo4"),
+"pressure_plate_activated": SubResource("Animation_sa8x8")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kbnri"]
+size = Vector3(1, 0.161473, 1)
+
+[node name="Trap_pressure_plate" type="Node3D"]
+script = ExtResource("1_yprtf")
+
+[node name="TrapPressurePlate" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_gqsjv")
+surface_material_override/0 = SubResource("StandardMaterial3D_vlyyj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_viuhr")
+}
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.086048, 0)
+shape = SubResource("BoxShape3D_kbnri")
+
+[connection signal="body_shape_entered" from="Area3D" to="." method="_on_area_3d_body_shape_entered"]

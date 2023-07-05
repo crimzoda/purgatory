@@ -1,0 +1,11 @@
+[gd_resource type="AnimatedTexture" load_steps=3 format=3 uid="uid://c84qx2nhqff44"]
+
+[ext_resource type="Texture2D" uid="uid://chw3pvbp8bthb" path="res://textures/dungeon_base_torch_0.png" id="1_l5dqj"]
+[ext_resource type="Texture2D" uid="uid://e2ty5g5q2br0" path="res://textures/dungeon_base_torch_1.png" id="2_2ko7t"]
+
+[resource]
+frames = 2
+speed_scale = 2.0
+frame_0/texture = ExtResource("1_l5dqj")
+frame_1/texture = ExtResource("2_2ko7t")
+frame_1/duration = 1.0

@@ -1,0 +1,176 @@
+[gd_scene load_steps=10 format=3 uid="uid://ceiy2mo64gs0c"]
+
+[ext_resource type="Script" path="res://scripts/siriph.gd" id="1_cjfyd"]
+[ext_resource type="Texture2D" uid="uid://xtax3xht6d7l" path="res://textures/siriph.png" id="2_kt4ft"]
+[ext_resource type="Script" path="res://scripts/shop_window.gd" id="3_4nmp8"]
+[ext_resource type="Texture2D" uid="uid://hf4272ukiatb" path="res://textures/shop_window.png" id="4_of1fu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_71h1f"]
+size = Vector3(1.79767, 1, 1)
+
+[sub_resource type="Animation" id="Animation_i3i7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ip0gt"]
+resource_name = "skeleton_damage"
+length = 0.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.353), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.94902, 0.592157, 0.580392, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jlavo"]
+_data = {
+"RESET": SubResource("Animation_i3i7x"),
+"skeleton_damage": SubResource("Animation_ip0gt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g201e"]
+size = Vector2(339, 329)
+
+[node name="Siriph" type="CharacterBody3D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_cjfyd")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_kt4ft")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_71h1f")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+navigation_layers = 3
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+visible = false
+billboard = 1
+texture_filter = 0
+text = "[Velocity]"
+font_size = 40
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jlavo")
+}
+
+[node name="audio_timer" type="Timer" parent="."]
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+max_distance = 10.0
+bus = &"Dungeon"
+
+[node name="Shop_window" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -354.0
+offset_top = -172.5
+offset_bottom = 172.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("3_4nmp8")
+
+[node name="bgWindow" type="TextureRect" parent="Shop_window"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -1.0
+offset_right = 356.0
+offset_bottom = 344.0
+texture = ExtResource("4_of1fu")
+
+[node name="dragbar" type="TextureRect" parent="Shop_window"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 9.0
+offset_right = 318.0
+offset_bottom = 38.0
+
+[node name="btnClose" type="TextureRect" parent="Shop_window"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 8.0
+offset_right = 346.0
+offset_bottom = 39.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Shop_window"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 43.0
+offset_right = 337.0
+offset_bottom = 327.0
+
+[node name="storageContainer" type="VBoxContainer" parent="Shop_window/ScrollContainer"]
+layout_mode = 2
+
+[node name="Area2D" type="Area2D" parent="Shop_window"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shop_window/Area2D"]
+position = Vector2(176.5, 173)
+shape = SubResource("RectangleShape2D_g201e")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="timeout" from="audio_timer" to="." method="_on_audio_timer_timeout"]
+[connection signal="visibility_changed" from="Shop_window" to="Shop_window" method="_on_visibility_changed"]
+[connection signal="gui_input" from="Shop_window/dragbar" to="Shop_window" method="_on_dragbar_gui_input"]
+[connection signal="gui_input" from="Shop_window/btnClose" to="Shop_window" method="_on_btn_close_gui_input"]
+[connection signal="mouse_entered" from="Shop_window/Area2D" to="Shop_window" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Shop_window/Area2D" to="Shop_window" method="_on_area_2d_mouse_exited"]

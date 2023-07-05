@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://dy55wb2qcr0t0"]
+
+[ext_resource type="Script" path="res://scripts/item_drop.gd" id="1_fji2n"]
+[ext_resource type="Texture2D" uid="uid://d1lfchl0rebiw" path="res://textures/items/cooked_chicken.png" id="2_0eim7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jwk45"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xjjci"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Animation" id="Animation_hrlv5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("itemSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_riqqf"]
+resource_name = "item_drop"
+length = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("itemSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.5, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_end8d"]
+_data = {
+"RESET": SubResource("Animation_hrlv5"),
+"item_drop": SubResource("Animation_riqqf")
+}
+
+[node name="Item_drop" type="CharacterBody3D"]
+collision_layer = 4
+script = ExtResource("1_fji2n")
+
+[node name="itemSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+pixel_size = 0.035
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_0eim7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jwk45")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_xjjci")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_end8d")
+}
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

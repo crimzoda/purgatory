@@ -1,0 +1,11 @@
+[gd_resource type="AnimatedTexture" load_steps=3 format=3 uid="uid://cyfqtk0u5o1d3"]
+
+[ext_resource type="Texture2D" uid="uid://c02pwfh7mbldf" path="res://textures/fireball_0.png" id="1_wn4tu"]
+[ext_resource type="Texture2D" uid="uid://d0ks8ux6d8rqj" path="res://textures/fireball_1.png" id="2_6u8mp"]
+
+[resource]
+frames = 2
+speed_scale = 2.0
+frame_0/texture = ExtResource("1_wn4tu")
+frame_1/texture = ExtResource("2_6u8mp")
+frame_1/duration = 1.0

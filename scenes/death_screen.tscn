@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://b58jaskxvxaao"]
+
+[ext_resource type="Texture2D" uid="uid://q5jva2gdrrl2" path="res://textures/death_text.png" id="1_r8ohx"]
+[ext_resource type="Script" path="res://scripts/death_screen.gd" id="1_rm03e"]
+
+[node name="Death_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rm03e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.5
+offset_top = -123.5
+offset_right = 355.5
+offset_bottom = 123.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_r8ohx")
+
+[node name="btnRetry" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[connection signal="pressed" from="VBoxContainer/btnRetry" to="." method="_on_btn_retry_pressed"]

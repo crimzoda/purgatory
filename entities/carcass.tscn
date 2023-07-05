@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvdssil8gtmlf"]
+
+[ext_resource type="Script" path="res://scripts/carcass.gd" id="1_3wi21"]
+
+[node name="carcass" type="Sprite3D"]
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+script = ExtResource("1_3wi21")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

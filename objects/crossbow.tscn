@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://sye2gccl4gv3"]
+
+[ext_resource type="Script" path="res://scripts/crossbow.gd" id="1_4mfyg"]
+[ext_resource type="Texture2D" uid="uid://dlmenf6xcgdpx" path="res://textures/items/crossbow.png" id="2_6wxgb"]
+
+[sub_resource type="Animation" id="Animation_g6kwv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_n3nbu"]
+resource_name = "crossbow_animation"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.07, 0.11, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector3(0, 0, 0), Vector3(0.0406466, 0, 0), Vector3(0.101616, 0, 0), Vector3(0.0609699, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ikrnh"]
+_data = {
+"RESET": SubResource("Animation_g6kwv"),
+"crossbow_animation": SubResource("Animation_n3nbu")
+}
+
+[node name="Crossbow" type="Node3D"]
+script = ExtResource("1_4mfyg")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+offset = Vector2(0, -2)
+pixel_size = 0.03
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_6wxgb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ikrnh")
+}
+
+[node name="fire_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="fire_timer" to="." method="_on_fire_timer_timeout"]

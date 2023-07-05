@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dvpv482hyi8o8"
+path="res://.godot/imported/trap_pressure_plate.obj-de40f3e7c474fe31a53910c72b6a4507.mesh"
+
+[deps]
+
+files=["res://.godot/imported/trap_pressure_plate.obj-de40f3e7c474fe31a53910c72b6a4507.mesh"]
+
+source_file="res://meshes/trap_pressure_plate.obj"
+dest_files=["res://.godot/imported/trap_pressure_plate.obj-de40f3e7c474fe31a53910c72b6a4507.mesh", "res://.godot/imported/trap_pressure_plate.obj-de40f3e7c474fe31a53910c72b6a4507.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

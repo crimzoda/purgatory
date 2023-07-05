@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cncst4bewxaia"]
+
+[ext_resource type="ArrayMesh" uid="uid://dlnevq0o7p28d" path="res://meshes/coins.obj" id="1_oyc74"]
+[ext_resource type="Texture2D" uid="uid://44ei0gbnv3ou" path="res://textures/coin_texture.png" id="2_vd5wp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6pi4d"]
+albedo_texture = ExtResource("2_vd5wp")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2lpew"]
+size = Vector3(1, 0.509979, 1.23447)
+
+[node name="Coins" type="Node3D"]
+
+[node name="Coins" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_oyc74")
+surface_material_override/0 = SubResource("StandardMaterial3D_6pi4d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0016169, 0)
+shape = SubResource("BoxShape3D_2lpew")

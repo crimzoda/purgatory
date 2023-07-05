@@ -1,0 +1,94 @@
+{
+	"cooked_chicken": {
+		"ItemCategory": "Food",
+		"StackSize": 8,
+		"Description": "High in protein.",
+		"Drop_Chance": 30,
+		"Health_buff": 10,
+		"Equippable": false,
+		"Price": 10
+	},
+	"raw_chicken": {
+		"ItemCategory": "Food",
+		"StackSize": 8,
+		"Description": "Eat at your own risk.",
+		"Drop_Chance": 20,
+		"Health_buff": 10,
+		"Equippable": false,
+		"Price": 6
+	},
+	"dagger": {
+		"ItemCategory": "Weapon",
+		"StackSize": 1,
+		"Description": "Small but sturdy.",
+		"Damage": 5,
+		"Cooldown": 0.15,
+		"Range": 1,
+		"Drop_Chance": 10,
+		"Equippable": true,
+		"Price": 50
+	},
+	"claymore": {
+		"ItemCategory": "Weapon",
+		"StackSize": 1,
+		"Description": "Used by the elegant and mighty.",
+		"Damage": 100,
+		"Cooldown": 0.3,
+		"Range": 5,
+		"Drop_Chance": 0,
+		"Equippable": true,
+		"Price": 1000
+	},
+	"torch": {
+		"ItemCategory": "Offhand",
+		"StackSize": 16,
+		"Description": "Light the way, temporarily.",
+		"Drop_Chance": 30,
+		"Equippable": true,
+		"Price": 20
+	},
+	"dungeon_key": {
+		"ItemCategory": "Offhand",
+		"StackSize": 1,
+		"Description": "You're way out.",
+		"Drop_Chance": 0,
+		"Equippable": false
+	},
+	"spirit": {
+		"ItemCategory": "Misc",
+		"StackSize": 100,
+		"Description": "Tormented even in death.",
+		"Drop_Chance": 35,
+		"Equippable": false
+	},
+	"crossbow": {
+		"ItemCategory": "Projectile",
+		"StackSize": 1,
+		"Description": "Takes some guts.",
+		"Damage": 5,
+		"Cooldown": 0.3,
+		"Drop_Chance": 0,
+		"Equippable": true,
+		"Price": 1000
+	},
+	"leather_tunic": {
+		"ItemCategory": "Wearable",
+		"StackSize": 1,
+		"Description": "Ragged.",
+		"Body_Part": "Torso",
+		"Protection": 2,
+		"Drop_Chance": 30,
+		"Equippable": true,
+		"Price": 50
+	},
+	"guard_helmet": {
+		"ItemCategory": "Wearable",
+		"StackSize": 1,
+		"Description": "Protective and sturdy.",
+		"Body_Part": "Head",
+		"Protection": 2,
+		"Drop_Chance": 1,
+		"Equippable": true,
+		"Price": 50
+	}
+}

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://da5drre6fv52c"]
+
+[ext_resource type="Script" path="res://scripts/ladder.gd" id="1_6jmy1"]
+[ext_resource type="ArrayMesh" uid="uid://dlrgacnd3shno" path="res://meshes/ladder.obj" id="1_hq5aw"]
+[ext_resource type="Texture2D" uid="uid://cnrmiqaolcgpo" path="res://textures/ladder.png" id="2_wqe27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qe4l5"]
+albedo_texture = ExtResource("2_wqe27")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhe0k"]
+size = Vector3(1.86665, 6.04635, 1)
+
+[node name="Ladder" type="Node3D"]
+script = ExtResource("1_6jmy1")
+
+[node name="Ladder" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_hq5aw")
+surface_material_override/0 = SubResource("StandardMaterial3D_qe4l5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.57626, 0)
+shape = SubResource("BoxShape3D_fhe0k")
+
+[connection signal="input_event" from="StaticBody3D" to="." method="_on_static_body_3d_input_event"]

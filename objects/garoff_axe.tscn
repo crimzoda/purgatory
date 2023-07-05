@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://chdogpswfr8fp"]
+
+[ext_resource type="Script" path="res://scripts/garoff_axe.gd" id="1_ebcur"]
+[ext_resource type="Texture2D" uid="uid://b64ye7ggrcdlw" path="res://textures/garoff_axe.png" id="2_08te4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lqqc7"]
+size = Vector3(1.43442, 1.3165, 2.11147)
+
+[sub_resource type="Animation" id="Animation_7yoxc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_dr7jy"]
+resource_name = "garoff_axe_spin"
+length = 0.30001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:flip_v")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mo6m3"]
+_data = {
+"RESET": SubResource("Animation_7yoxc"),
+"garoff_axe_spin": SubResource("Animation_dr7jy")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_psr7d"]
+size = Vector3(1.43442, 1.3165, 2.11147)
+
+[node name="Garoff_axe" type="Area3D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_ebcur")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_08te4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.131154, 0)
+shape = SubResource("BoxShape3D_lqqc7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mo6m3")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+bus = &"Dungeon"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.131, 0)
+shape = SubResource("BoxShape3D_psr7d")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,167 @@
+[gd_scene load_steps=15 format=3 uid="uid://82lwrcymfccr"]
+
+[ext_resource type="Script" path="res://scripts/chest.gd" id="1_6pwx8"]
+[ext_resource type="Texture2D" uid="uid://bor6l13y3y3s7" path="res://textures/chest.png" id="2_r6gw4"]
+[ext_resource type="Script" path="res://scripts/chest_inventory.gd" id="4_ajqy7"]
+[ext_resource type="Texture2D" uid="uid://d25oc37ihsm1s" path="res://textures/chest_window.png" id="4_eaqhd"]
+[ext_resource type="ArrayMesh" uid="uid://5ew1ppdrn22v" path="res://meshes/chest_body.obj" id="6_2pqin"]
+[ext_resource type="ArrayMesh" uid="uid://dmvt6ft1bxgv7" path="res://meshes/chest_lid.obj" id="7_ov8ck"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75kv7"]
+albedo_texture = ExtResource("2_r6gw4")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jt1nh"]
+albedo_texture = ExtResource("2_r6gw4")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vy26g"]
+size = Vector3(1.5, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wik5h"]
+size = Vector2(339, 329)
+
+[sub_resource type="Animation" id="Animation_gxghi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChestLidAnchor:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ln18k"]
+resource_name = "chest_close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChestLidAnchor:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.785398, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6wp43"]
+resource_name = "chest_open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChestLidAnchor:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.785398, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hdjch"]
+_data = {
+"RESET": SubResource("Animation_gxghi"),
+"chest_close": SubResource("Animation_ln18k"),
+"chest_open": SubResource("Animation_6wp43")
+}
+
+[node name="Chest" type="Node3D"]
+script = ExtResource("1_6pwx8")
+
+[node name="ChestBody" type="MeshInstance3D" parent="."]
+mesh = ExtResource("6_2pqin")
+surface_material_override/0 = SubResource("StandardMaterial3D_75kv7")
+
+[node name="ChestLidAnchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300713, -0.49982)
+
+[node name="ChestLid" type="MeshInstance3D" parent="ChestLidAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.300713, 0.49982)
+mesh = ExtResource("7_ov8ck")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_jt1nh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vy26g")
+
+[node name="Chest_window" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -354.0
+offset_top = -172.5
+offset_bottom = 172.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("4_ajqy7")
+
+[node name="bgWindow" type="TextureRect" parent="Chest_window"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -1.0
+offset_right = 356.0
+offset_bottom = 344.0
+texture = ExtResource("4_eaqhd")
+
+[node name="dragbar" type="TextureRect" parent="Chest_window"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 9.0
+offset_right = 318.0
+offset_bottom = 38.0
+
+[node name="btnClose" type="TextureRect" parent="Chest_window"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 8.0
+offset_right = 346.0
+offset_bottom = 39.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Chest_window"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 43.0
+offset_right = 337.0
+offset_bottom = 327.0
+
+[node name="storageContainer" type="VBoxContainer" parent="Chest_window/ScrollContainer"]
+layout_mode = 2
+
+[node name="Area2D" type="Area2D" parent="Chest_window"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chest_window/Area2D"]
+position = Vector2(176.5, 173)
+shape = SubResource("RectangleShape2D_wik5h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hdjch")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[connection signal="input_event" from="StaticBody3D" to="." method="_on_static_body_3d_input_event"]
+[connection signal="visibility_changed" from="Chest_window" to="Chest_window" method="_on_visibility_changed"]
+[connection signal="gui_input" from="Chest_window/dragbar" to="Chest_window" method="_on_dragbar_gui_input"]
+[connection signal="gui_input" from="Chest_window/btnClose" to="Chest_window" method="_on_btn_close_gui_input"]
+[connection signal="mouse_entered" from="Chest_window/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Chest_window/Area2D" to="." method="_on_area_2d_mouse_exited"]

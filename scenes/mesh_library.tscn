@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://c56ph3qeifwpr"]
+
+[ext_resource type="ArrayMesh" uid="uid://bww4o75v3r03u" path="res://meshes/dungeon_floor.obj" id="3_pw5ct"]
+[ext_resource type="ArrayMesh" uid="uid://cetb3dsai1c10" path="res://meshes/dungeon_wall_torch.obj" id="4_ge4q8"]
+[ext_resource type="ArrayMesh" uid="uid://ci6j34wpm6884" path="res://meshes/dungeon_wall.obj" id="4_mbh7u"]
+[ext_resource type="Texture2D" uid="uid://5m5hgh3wvngo" path="res://textures/dungeon_base.png" id="5_qp74l"]
+[ext_resource type="Texture2D" uid="uid://c84qx2nhqff44" path="res://textures/dungeon_wall_torch.tres" id="5_uhau2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5hwyx"]
+albedo_texture = ExtResource("5_qp74l")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8okrk"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vhy5l"]
+albedo_texture = ExtResource("5_qp74l")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftam5"]
+albedo_texture = ExtResource("5_uhau2")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bqrn0"]
+size = Vector3(2, 2, 2)
+
+[node name="mesh_library" type="Node3D"]
+
+[node name="0" type="MeshInstance3D" parent="."]
+layers = 16
+mesh = ExtResource("3_pw5ct")
+surface_material_override/0 = SubResource("StandardMaterial3D_5hwyx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="0/StaticBody3D"]
+shape = SubResource("BoxShape3D_8okrk")
+
+[node name="1" type="MeshInstance3D" parent="."]
+mesh = ExtResource("4_mbh7u")
+surface_material_override/0 = SubResource("StandardMaterial3D_vhy5l")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="1/StaticBody3D"]
+shape = SubResource("BoxShape3D_8okrk")
+
+[node name="2" type="MeshInstance3D" parent="."]
+mesh = ExtResource("4_ge4q8")
+surface_material_override/0 = SubResource("StandardMaterial3D_ftam5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="2/StaticBody3D"]
+shape = SubResource("BoxShape3D_bqrn0")
